@@ -18,7 +18,7 @@ model creator{
   fullname          String
   document          String
   cnpj              String?
-  email             String
+  email             String    @unique
   password          String
   miniapp           miniApps[]
   cratedAt          DateTime  @default(now())
