@@ -1,0 +1,17 @@
+# Arquivos de dependências locais
+node_modules
+dist
+
+# Arquivos locais
+.vscode
+.idea
+*.log
+
+# Arquivos desnecessários
+Dockerfile
+.dockerignore
+.eslintrc
+.prettierrc
+tests/
+coverage/
+.env.local
