@@ -1,17 +1,6 @@
 version: "3.9"
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    env_file:
-      - .env
-    depends_on:
-      - db
-      - rabbitmq
 
   db:
     image: postgres:16
@@ -25,6 +14,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
+
   rabbitmq:
     image: rabbitmq:3-management
     ports:
@@ -33,6 +23,29 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
+
+  migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    env_file:
+      - .env
+    command: ["npx", "prisma", "migrate", "deploy"]
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - rabbitmq
+    command: ["sh", "-c", "npx prisma generate && node dist/server.js"]
 
 volumes:
   pgdata:

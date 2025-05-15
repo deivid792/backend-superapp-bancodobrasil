@@ -13,7 +13,7 @@ export async function signupUseCase(data:creatorInput){
 
   const uuid = randomUUID()
 
-  const hashedPassword = hash(data.password, 10)
+  const hashedPassword = await hash(data.password, 10)
 
   const createToken = generateJWT(uuid)
 
@@ -26,7 +26,7 @@ export async function signupUseCase(data:creatorInput){
     cnpj: data.cnpj
   })
 
-return {createUser, createToken}
+return {createdUser, createToken}
 
 }
 

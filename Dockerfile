@@ -7,8 +7,9 @@ WORKDIR /app
 # Copia os arquivos necessários
 COPY package*.json ./
 COPY tsconfig.json ./
-COPY ./src ./src
 COPY ./prisma ./prisma
+COPY ./src ./src
+COPY .env .env
 
 # Instala dependências e compila o código TypeScript
 RUN npm install
@@ -27,7 +28,11 @@ WORKDIR /app
 # Copia apenas os artefatos finais da etapa de build
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
-COPY package*.json ./
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/.env .env
+
+
 
 # Define o comando para rodar a aplicação
 CMD ["node", "dist/server.js"]
