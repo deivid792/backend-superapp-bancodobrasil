@@ -3,7 +3,7 @@ import { registerMiniApp } from "../../aplication/use-cases/createMiniApp-use-ca
 import { miniappsSchema } from "../validators/zod/miniApps-validator";
 import { Request, Response } from "express";
 
-export const miniappControler = (req: extendRequest , res:Response): void => {
+export const miniappControler = async (req: extendRequest , res:Response): Promise<void> => {
 
   const verifyParse = miniappsSchema.safeParse(req.body)
 
@@ -24,11 +24,11 @@ export const miniappControler = (req: extendRequest , res:Response): void => {
   }
 
   try{
-    const saveMiniApp = registerMiniApp(miniAppData)
+    const saveMiniApp = await registerMiniApp(miniAppData)
     res.json({sucess:true, data:saveMiniApp})
   }
-  catch{
-    res.json({error:''})
+  catch(err){
+    res.status(500).json({error:'Erro interno ao registrar miniApp', detail: String(err)})
   }
 
 }

@@ -4,9 +4,9 @@ import { any } from "zod";
 import { extendRequest } from "../../../interfaces/http/types/express-types";
 import { findUserByID } from "../../repositories/prisma-verify";
 
-export const verifyJWT = async (req: extendRequest, res: Response, Next: NextFunction): Promise<void> =>{
+export const verifyJWT = async (req: extendRequest, res: Response, next: NextFunction): Promise<void> =>{
       const authHeader = req.headers['authorization']
-      if(! authHeader) {
+      if(!authHeader) {
         res.status(404).json({error :'Acesso negado'})
         return
       }
@@ -14,33 +14,18 @@ export const verifyJWT = async (req: extendRequest, res: Response, Next: NextFun
 
       const token = authHeader.split(' ')[1]
 
-      jwt.verify(
-        token,
-        process.env.JWT_SECRET as string,
-        async (error, decoded:any) =>{
-          if(error) {
-            res.status(404).json({error :'Acesso negado'})
-            return
-          }
+      try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { uuid: string };
+    const user = await findUserByID(decoded.uuid);
 
-          const user = await findUserByID (decoded.id)
+    if (!user) {
+      res.status(401).json({ error: 'Usuário não encontrado' });
+      return;
+    }
 
-          if(!user) {
-             res.status(404).json({error :'Acesso negado'})
-             return
-            }
-
-          req.userId = user.id
-
-          Next()
-
-          }
-
-
-
-
-      )
-
-
-
-}
+    req.userId = user.id;
+    next(); // <- agora corretamente chamado após await
+  } catch (error) {
+    res.status(401).json({ error: 'Token inválido' });
+  }
+};
