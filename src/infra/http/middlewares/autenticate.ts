@@ -24,7 +24,7 @@ export const verifyJWT = async (req: extendRequest, res: Response, next: NextFun
     }
 
     req.userId = user.id;
-    next(); // <- agora corretamente chamado após await
+    next();
   } catch (error) {
     res.status(401).json({ error: 'Token inválido' });
   }
