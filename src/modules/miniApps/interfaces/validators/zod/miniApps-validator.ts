@@ -9,6 +9,6 @@ version: z.string({message: 'obrigatório informar a versão'}).min(1),
 entrypointUrl: z.string({message: 'é obrigatório a url do entrypoint'}).url('url inválido'),
 iconUrl: z.string({message: 'é obrigatório a url do icone'}).url('url inválido'),
 repositoryUrl: z.string({message: 'é obrigatório a url do repositório'}).url('url inválido'),
-category: categoryEnum,
+categories: categoryEnum,
 permissions:z.array(permissionEnum).nonempty('pelo menos uma permissão precisa ser selecionada')
 })

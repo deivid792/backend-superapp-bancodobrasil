@@ -18,7 +18,7 @@ const miniApp = creatMiniApp({
     entrypointUrl: data.entrypointUrl,
     iconUrl : data.iconUrl,
     repositoryUrl: data.repositoryUrl,
-    category: data.category,
+    category: data.categories,
     permissions: data.permissions,
     creatorId:  data.creatorId,
   }

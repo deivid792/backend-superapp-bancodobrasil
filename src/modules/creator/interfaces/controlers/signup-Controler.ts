@@ -3,17 +3,17 @@ import { error } from "console";
 import { Request, Response } from "express";
   import { signupUseCase } from "../../aplication/use-cases/signup-creator-use-cases";
 
-export const signup = async (req: Request, res: Response): Promise<void> =>{
+export const signupControler = async (req: Request, res: Response): Promise<void> =>{
 
   const safeData = singnupSchema.safeParse(req.body)
 
   if(!safeData.success){
-     res.json({error: safeData.error.flatten().fieldErrors})
+     res.status(400).json({error: safeData.error.flatten().fieldErrors})
      return
   }
   try {
-    const hasEmail = await signupUseCase(safeData.data);
-    res.json({ success: true, data: hasEmail });
+    const saveData = await signupUseCase(safeData.data);
+    res.json({ success: true, data: saveData });
   } catch (err) {
     res.status(400).json({ error: err });
   }

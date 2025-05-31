@@ -8,7 +8,7 @@ export interface registerMiniAppDTO {
   entrypointUrl: string
   iconUrl :string
   repositoryUrl: string
-  category: Category
+  categories: Category
   permissions: Permission[]
   creatorId:  string
 }

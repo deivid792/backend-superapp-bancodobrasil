@@ -1,4 +1,4 @@
-import { findUserByEmail, createUser } from "../../infrastructure/repositories/prisma-creator-repositorie";
+import { findUserByEmail, createUser } from "../../infrastructure/repositories/prisma-creator-signup-repositorie";
 import { creatorInput } from "../../domain/entities/creator-entities";
 import { any } from "zod";
 import { randomUUID } from "crypto";
