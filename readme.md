@@ -1,6 +1,6 @@
 # Super App - API (Node.js)
 
-Este repositório contém a API principal do Super App, desenvolvida em Node.js com arquitetura limpa. A aplicação já possui os módulos de **usuários** e **miniapps**, utilizando **Prisma ORM** com migrations e estrutura modular.
+Este repositório contém a API principal do Super App, desenvolvida em Node.js com arquitetura limpa. A aplicação já possui os módulos de **usuários** e **miniapps**, utilizando **Prisma ORM** com migrations, docker e estrutura modular.
 
 ## Tecnologias utilizadas
 
