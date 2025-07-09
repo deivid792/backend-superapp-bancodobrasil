@@ -21,6 +21,4 @@ mainRouter.get('/miniApps', verifyJWT, listMiniAppControler.listMiniAppsControle
 
 mainRouter.get('/miniApps/:id', verifyJWT, getMiniAppById.getMiniAppByIdControler)
 
-//mainRouter.put('/miniApps/:id')
-
 mainRouter.delete('/miniApps/:id', verifyJWT, deleteMiniApp.deleteMiniAppController )

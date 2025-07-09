@@ -27,13 +27,16 @@ CREATE TABLE "miniApps" (
     "entrypointUrl" TEXT NOT NULL,
     "iconUrl" TEXT NOT NULL,
     "repositoryUrl" TEXT NOT NULL,
-    "category" "miniAppCategory" NOT NULL,
+    "category" "miniAppCategory"[],
     "permissions" "miniAppPermission"[],
     "creatorId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "miniApps_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "creator_email_key" ON "creator"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "miniApps_name_key" ON "miniApps"("name");

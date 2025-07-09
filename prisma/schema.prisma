@@ -49,7 +49,7 @@ model miniApps{
   entrypointUrl     String
   iconUrl           String
   repositoryUrl     String
-  category          miniAppCategory
+  category          miniAppCategory[]
   permissions       miniAppPermission[]
   creatorId         String
   creators          creator   @relation(fields: [creatorId], references: [id])
